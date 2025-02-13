@@ -28,6 +28,8 @@ vim.opt.showmode = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
+vim.keymap.set('v', '<leader>y', '"+y', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>Y', '"+Y', { noremap = true, silent = true })
 
 -- Enable break indent
 vim.opt.breakindent = true
