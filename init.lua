@@ -510,6 +510,7 @@ require('lazy').setup({
       local servers = {
         pylsp = {},
         jdtls = {},
+        clangd = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -545,6 +546,8 @@ require('lazy').setup({
         'ruff',
         'checkstyle',
         'google-java-format',
+        'cpplint',
+        'clang-format',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
