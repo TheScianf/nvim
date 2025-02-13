@@ -28,8 +28,8 @@ vim.opt.showmode = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
-vim.keymap.set('v', '<leader>y', '"+y', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>Y', '"+Y', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank to clipboard current line', noremap = true, silent = true })
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -353,14 +353,14 @@ require('lazy').setup({
           },
         },
       },
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'williamboman/mason-lspconfig.nvim' },
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
+      { 'hrsh7th/cmp-nvim-lsp' },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -638,13 +638,13 @@ require('lazy').setup({
           },
         },
       },
-      'saadparwaiz1/cmp_luasnip',
+      { 'saadparwaiz1/cmp_luasnip' },
 
       -- Adds other completion capabilities.
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-path' },
     },
     config = function()
       -- See `:help cmp`
@@ -784,12 +784,6 @@ require('lazy').setup({
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
   --NOTE: External plugins
