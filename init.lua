@@ -1,4 +1,3 @@
--- Barbuz culone
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -101,6 +100,8 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- Terminal in new tab keymap
+vim.api.nvim_set_keymap('n', '<leader>tt', ':tabnew | terminal<CR>', { desc = 'Open a new terminal in a different tab', noremap = true, silent = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -154,19 +155,6 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
   --
-  -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -181,33 +169,6 @@ require('lazy').setup({
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-
-  { -- Useful plugin to show you pending keybinds.
-    'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    opts = {
-      -- delay between pressing a key and opening which-key (milliseconds)
-      -- this setting is independent of vim.opt.timeoutlen
-      delay = 0,
-      icons = {
-        -- set icon mappings to true if you have a Nerd Font
-        mappings = true,
-        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
-        keys = {},
-      },
-      -- Document existing key chains
-      spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      },
-    },
-  },
 
   -- NOTE: Plugins can specify dependencies.
   --
