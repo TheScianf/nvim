@@ -104,6 +104,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Terminal in new tab keymap
 vim.api.nvim_set_keymap('n', '<leader>tt', ':tabnew | terminal<CR>', { desc = 'Open a new terminal in a different tab', noremap = true, silent = true })
 
+-- Closing tab
+vim.api.nvim_set_keymap('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab', noremap = true, silent = true })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
