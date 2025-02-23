@@ -1,26 +1,14 @@
 # kickstart.nvim
-
+ 
 ## Introduction
 
-A starting point for Neovim that is:
-
-* Small
-* Single-file
-* Completely Documented
-
-**NOT** a Neovim distribution, but instead a starting point for your configuration.
-
-## Installation
-
 ### Install Neovim
-
 Kickstart.nvim targets *only* the latest
 ['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
 ['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
 If you are experiencing issues, please make sure you have the latest versions.
 
 ### Install External Dependencies
-
 External Requirements:
 - Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
@@ -37,7 +25,6 @@ External Requirements:
 > and quick install snippets
 
 ### Install Kickstart
-
 > **NOTE**
 > [Backup](#FAQ) your previous configuration (if any exists)
 
@@ -80,13 +67,13 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HO
 
 If you're using `cmd.exe`:
 
-```
+```bash
 git clone https://github.com/nvim-lua/kickstart.nvim.git "%localappdata%\nvim"
 ```
 
 If you're using `powershell.exe`
 
-```
+```bash
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nvim"
 ```
 
@@ -187,7 +174,7 @@ choco install -y neovim git ripgrep wget fd unzip gzip mingw make
 </details>
 <details><summary>WSL (Windows Subsystem for Linux)</summary>
 
-```
+```bash
 wsl --install
 wsl
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
@@ -199,7 +186,7 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 #### Linux Install
 <details><summary>Ubuntu Install Steps</summary>
 
-```
+```bash
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip neovim
@@ -207,7 +194,7 @@ sudo apt install make gcc ripgrep unzip git xclip neovim
 </details>
 <details><summary>Debian Install Steps</summary>
 
-```
+```bash
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip curl
 
@@ -224,14 +211,14 @@ sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/
 </details>
 <details><summary>Fedora Install Steps</summary>
 
-```
+```bash
 sudo dnf install -y gcc make git ripgrep fd-find unzip neovim
 ```
 </details>
 
 <details><summary>Arch Install Steps</summary>
 
-```
+```bash
 sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 ```
 </details>

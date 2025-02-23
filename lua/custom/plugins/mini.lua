@@ -30,10 +30,10 @@ return { -- Collection of various small independent plugins/modules
       -- Use `''` (empty string) to not create one.
       mappings = {
         close = '\\',
-        go_in = 'l',
-        go_in_plus = 'L',
-        go_out = 'h',
-        go_out_plus = 'H',
+        go_in = '<Enter>',
+        go_in_plus = 'l',
+        go_out = '<Backspace>',
+        go_out_plus = 'h',
         mark_goto = "'",
         mark_set = 'm',
         reset = '<BS>',
