@@ -6,4 +6,5 @@ return {
     main = 'ibl',
     opts = {},
   },
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 }
