@@ -1,20 +1,10 @@
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
   config = function()
-    -- Better Around/Inside textobjects
-    --
-    -- Examples:
-    --  - va)  - [V]isually select [A]round [)]paren
-    --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-    --  - ci'  - [C]hange [I]nside [']quote
     require('mini.ai').setup { n_lines = 500 }
-
-    -- Add/delete/replace surroundings (brackets, quotes, etc.)
-    --
-    -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-    -- - sd'   - [S]urround [D]elete [']quotes
-    -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
+    require('mini.pairs').setup()
+    require('mini.indentscope').setup { symbol = ':' }
     require('mini.files').setup {
       -- Customization of shown content
       content = {
@@ -34,14 +24,6 @@ return { -- Collection of various small independent plugins/modules
         go_in_plus = 'l',
         go_out = '<Backspace>',
         go_out_plus = 'h',
-        mark_goto = "'",
-        mark_set = 'm',
-        reset = '<BS>',
-        reveal_cwd = '@',
-        show_help = 'g?',
-        synchronize = '=',
-        trim_left = '<',
-        trim_right = '>',
       },
 
       -- General options
@@ -68,11 +50,7 @@ return { -- Collection of various small independent plugins/modules
     }
 
     vim.keymap.set('n', '\\', '<cmd>lua MiniFiles.open()<CR>', { desc = 'Open MiniFiles' })
-    -- Simple and easy statusline.
-    --  You could remove this setup call if you don't like it,
-    --  and try some other statusline plugin
     local statusline = require 'mini.statusline'
-    -- set use_icons to true if you have a Nerd Font
     statusline.setup { use_icons = vim.g.have_nerd_font }
 
     -- You can configure sections in the statusline by overriding their

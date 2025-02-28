@@ -6,6 +6,7 @@ return {
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'rebelot/kanagawa.nvim',
     -- priority = 1000, -- Make sure to load this before all the other start plugins.
+    enabled = false,
     opts = {
       colors = {
         theme = {
@@ -61,35 +62,11 @@ return {
   },
   {
     'savq/melange-nvim',
+    enabled = true,
     priority = 1000,
     config = function()
       vim.opt.termguicolors = true
       vim.cmd.colorscheme 'melange'
-
-      -- Make background transparent
-      vim.cmd [[
-            highlight Normal guibg=NONE ctermbg=NONE
-            highlight NonText guibg=NONE ctermbg=NONE
-            highlight NormalNC guibg=NONE ctermbg=NONE
-            highlight LineNr guibg=NONE ctermbg=NONE
-            highlight Folded guibg=NONE ctermbg=NONE
-            highlight EndOfBuffer guibg=NONE ctermbg=NONE
-            highlight FloatBorder guibg=NONE ctermbg=NONE
-            highlight NormalFloat guibg=NONE ctermbg=NONE
-            highlight Pmenu guibg=NONE ctermbg=NONE
-            highlight PmenuSel guibg=NONE ctermbg=NONE
-            highlight PmenuSbar guibg=NONE ctermbg=NONE
-            highlight PmenuThumb guibg=NONE ctermbg=NONE
-        ]]
     end,
   },
-
-  -- {
-  --   'savq/melange-nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.opt.termguicolors = true
-  --     vim.cmd.colorscheme 'melange'
-  --   end,
-  -- },
 }
