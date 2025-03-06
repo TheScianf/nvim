@@ -1,0 +1,11 @@
+return {
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  ---@type snacks.Config
+  opts = {
+    notifier = {enabled = true},
+    input = {enabled = true},
+    dim = {enabled = true},
+  },
+}
