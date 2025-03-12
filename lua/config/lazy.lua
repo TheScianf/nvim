@@ -11,5 +11,5 @@ vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup {
-  spec = { { import = 'plugins' }, { import = 'plugins.codeflow'} },
+  spec = { { import = 'plugins' }, { import = 'plugins.codeflow'}},
 }
