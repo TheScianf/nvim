@@ -173,7 +173,6 @@ return {
       'stylua', -- Used to format Lua code
       'ruff',
       'checkstyle',
-      'luacheck',
       'google-java-format',
       'cpplint',
       'clang-format',

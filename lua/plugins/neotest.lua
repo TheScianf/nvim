@@ -6,15 +6,13 @@ return {
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
     'nvim-neotest/neotest-python',
+    'rcasia/neotest-java',
   },
-  config = function()
-    require('neotest').setup {
-      adapters = {
-        require 'neotest-python' {
-          dap = { justMyCode = false },
-          runner = 'unittest',
-        },
-      },
-    }
-  end,
+  opts = {
+
+    adapters = {
+      ['neotest-java'] = {},
+      ['neotest-python'] = { runner = 'unittest' },
+    },
+  },
 }
