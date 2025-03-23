@@ -176,6 +176,7 @@ return {
       'google-java-format',
       'cpplint',
       'clang-format',
+      'mdformat',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

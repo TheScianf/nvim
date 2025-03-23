@@ -21,6 +21,7 @@ return {
         python = { 'ruff_format' },
         java = { 'google-java-format' },
         c = { 'clang-format' },
+        markdown = { 'mdformat' },
       },
       format_on_save = {
         timeout_ms = 500,
