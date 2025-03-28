@@ -67,8 +67,6 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
-
--- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -106,4 +104,3 @@ vim.api.nvim_set_keymap('n', '<leader>tt', ':tabnew | terminal<CR>', { desc = 'O
 
 -- Closing tab
 vim.api.nvim_set_keymap('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab', noremap = true, silent = true })
-
