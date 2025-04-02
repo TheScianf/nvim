@@ -21,9 +21,9 @@ return { -- Collection of various small independent plugins/modules
       mappings = {
         close = '\\',
         go_in = '<Enter>',
-        go_in_plus = 'l',
+        go_in_plus = '<Enter>',
         go_out = '<Backspace>',
-        go_out_plus = 'h',
+        go_out_plus = '<Space>',
       },
 
       -- General options
