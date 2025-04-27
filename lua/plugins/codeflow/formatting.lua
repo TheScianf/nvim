@@ -22,6 +22,7 @@ return {
         java = { 'google-java-format' },
         c = { 'clang-format' },
         markdown = { 'mdformat' },
+        kotlin = { 'ktlint' },
       },
       format_on_save = {
         timeout_ms = 500,
