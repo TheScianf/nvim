@@ -11,7 +11,4 @@ return -- lazy.nvim
       command_palette = true, -- position the cmdline and popupmenu together
     }, -- add any options here
   },
-  config = function()
-    vim.keymap.set('n', '<leader>nd', '<cmd>NoidceDismiss<CR>', { desc = 'Dismiss noice notification' })
-  end,
 }
