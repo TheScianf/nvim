@@ -20,9 +20,10 @@ return { -- Highlight, edit, and navigate code
       'java',
       'regex',
       'prolog',
+      'typescript',
     },
     -- Autoinstall languages that are not installed
-    auto_install = true,
+    auto_install = false,
     highlight = {
       enable = true,
       -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
