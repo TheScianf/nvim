@@ -1,6 +1,8 @@
 return {
   'mfussenegger/nvim-lint',
-  opts = { linters_by_ft = { lua = { 'luacheck' }, python = { 'ruff' }, java = { 'checkstyle' }, c = { 'cpplint' }, kotlin = { 'ktlint' } } },
+  opts = {
+    linters_by_ft = { lua = { 'luacheck' }, python = { 'ruff' }, java = { 'checkstyle' }, c = { 'cpplint' }, kotlin = { 'ktlint' }, json = { 'jsonlint' } },
+  },
   config = function()
     vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
       callback = function()

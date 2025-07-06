@@ -177,7 +177,6 @@ return {
       'cpplint',
       'clang-format',
       'mdformat',
-      'ktlint',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

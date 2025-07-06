@@ -29,7 +29,7 @@ vim.schedule(function()
 end)
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank to clipboard current line', noremap = true, silent = true })
-
+vim.keymap.set('n', '<leader>ya', 'gg"+yG', { desc = 'Yank entire file to clipboard', noremap = true, silent = true })
 -- Enable break indent
 vim.opt.breakindent = true
 
