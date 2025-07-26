@@ -102,5 +102,12 @@ vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', n
 -- center to screen when jumping to line
 vim.keymap.set('n', 'j', 'jzz', { desc = 'Move down and center', noremap = true, silent = true })
 vim.keymap.set('n', 'k', 'kzz', { desc = 'Move up and center', noremap = true, silent = true })
---  See `:help hlsearch`
---  See `:help hlsearch`
+
+-- Autopair brackets and quotes with cursor positioning
+vim.keymap.set('i', '(', '()<Left>', { desc = 'Autopair (', noremap = true, silent = true })
+vim.keymap.set('i', '[', '[]<Left>', { desc = 'Autopair [', noremap = true, silent = true })
+vim.keymap.set('i', '{', '{}<Left>', { desc = 'Autopair {', noremap = true, silent = true })
+vim.keymap.set('i', '"', '""<Left>', { desc = 'Autopair "', noremap = true, silent = true })
+vim.keymap.set('i', "'", "''<Left>", { desc = "Autopair '", noremap = true, silent = true })
+vim.keymap.set('i', '`', '``<Left>', { desc = 'Autopair `', noremap = true, silent = true })
+vim.keymap.set('i', '<', '<><Left>', { desc = 'Autopair <', noremap = true, silent = true })
