@@ -23,11 +23,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
     -- textDocument/completion
     if client:supports_method('textDocument/completion') then
-      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-      local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-      client.server_capabilities.completionProvider.triggerCharacters = chars
       vim.opt_local.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+      vim.keymap.set('i', '<C-Space>', function()
+        vim.lsp.completion.get()
+      end, { buffer = bufnr })
     end
     -- textDocument/codeLens
     if client:supports_method('textDocument/codeLens') then
