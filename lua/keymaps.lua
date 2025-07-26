@@ -10,9 +10,8 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
+vim.opt.showmode = true
+vim.opt.showcmd = false
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -57,14 +56,12 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 
+vim.opt.statusline = "%f %m%r%=%y %l/%L"
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 --  See `:help vim.keymap.set()`
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
@@ -105,3 +102,5 @@ vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', n
 -- center to screen when jumping to line
 vim.keymap.set('n', 'j', 'jzz', { desc = 'Move down and center', noremap = true, silent = true })
 vim.keymap.set('n', 'k', 'kzz', { desc = 'Move up and center', noremap = true, silent = true })
+--  See `:help hlsearch`
+--  See `:help hlsearch`
