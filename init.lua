@@ -1,3 +1,5 @@
 require 'keymaps'
 require 'autocommands'
+require 'lsp_config'
 require 'config.lazy'
+require 'diagnostics'
