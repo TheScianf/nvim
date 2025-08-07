@@ -1,6 +1,4 @@
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('kotlin_lsp')
-vim.lsp.enable('python_lsp')
+vim.lsp.enable({ 'lua_ls', 'kotlin_lsp', 'python_lsp' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('my.lsp', {}),
@@ -127,7 +125,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', 'gd', vim.lsp.buf.definition, 'Go to definition')
     map('n', 'gD', vim.lsp.buf.declaration, 'Go to declaration')
     map('n', 'gr', vim.lsp.buf.references, 'Go to references')
-    map('n', 'gt', vim.lsp.buf.type_definition, 'Go to type definition')
+    map('n', 'gtt', vim.lsp.buf.type_definition, 'Go to type definition')
     map('n', '<leader>ca', vim.lsp.buf.code_action, 'Code actions')
     map('v', '<leader>ca', vim.lsp.buf.code_action, 'Code actions')
 
