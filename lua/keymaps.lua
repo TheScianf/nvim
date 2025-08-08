@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 
 vim.g.maplocalleader = ' '
 
-vim.cmd.colorscheme('unokai')
+vim.cmd.colorscheme 'unokai'
 
 vim.g.have_nerd_font = true
 
@@ -62,7 +62,7 @@ vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
-vim.opt.statusline = "%f %m%r%=%y %l/%L"
+vim.opt.statusline = '%f %m%r%=%y %l/%L'
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 -- Highlight option while searching
@@ -96,8 +96,7 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Tab keymaps
-vim.keymap.set('n', '<leader>t', ':tabnew',
-  { desc = 'Open new tab', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>nt', ':tabnew<CR>', { desc = 'Open new tab', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab', noremap = true, silent = true })
 
 -- New terminal
@@ -122,11 +121,26 @@ vim.keymap.set('i', '<', '<><Left>', { desc = 'Autopair <', noremap = true, sile
 
 -- Change colorscheme from light to dark and viceversa
 vim.keymap.set('n', '<leader>bg', function()
-  vim.cmd.colorscheme(vim.g.colors_name == "unokai" and "shine" or "unokai")
+  vim.cmd.colorscheme(vim.g.colors_name == 'unokai' and 'shine' or 'unokai')
 end, { desc = 'Toggle between unokai and shine colorschemes' })
 
 -- Explore commands
-vim.keymap.set('n', '\\', ':Lexplore<CR>', { desc = 'Open file tree', noremap = true, silent = true })
 vim.g.netrw_banner = 0    -- Remove the banner/description
 vim.g.netrw_liststyle = 3 -- Tree view
 vim.g.netrw_winsize = 25  -- Width of the netrw window (25% of screen)
+
+local function toggle_right_explore()
+  for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype == 'netrw' then
+      vim.api.nvim_win_close(win, false)
+      return
+    end
+  end
+  -- Open on the right side
+  vim.cmd('botright ' .. vim.g.netrw_winsize .. 'vnew')
+  vim.cmd 'Explore'
+end
+
+-- Set the keymap to toggle file tree vertically on the right
+vim.keymap.set('n', '\\', toggle_right_explore, { desc = 'Toggle file tree', noremap = true, silent = true })
