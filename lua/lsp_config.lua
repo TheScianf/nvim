@@ -1,4 +1,4 @@
-vim.lsp.enable({ 'lua_ls', 'kotlin_lsp', 'python_lsp' })
+vim.lsp.enable { 'lua_ls', 'kotlin_lsp', 'python_lsp', 'markdown_ls' }
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('my.lsp', {}),
@@ -11,16 +11,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set(mode, lhs, rhs, {
         buffer = bufnr,
         desc = 'LSP: ' .. desc,
-        silent = true
+        silent = true,
       })
     end
 
     -- textDocument/implementation
-    if client:supports_method('textDocument/implementation') then
+    if client:supports_method 'textDocument/implementation' then
       map('n', 'gi', vim.lsp.buf.implementation, 'Go to implementation')
     end
     -- textDocument/completion
-    if client:supports_method('textDocument/completion') then
+    if client:supports_method 'textDocument/completion' then
       vim.opt_local.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
       vim.keymap.set('i', '<C-Space>', function()
@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end, { buffer = bufnr })
     end
     -- textDocument/codeLens
-    if client:supports_method('textDocument/codeLens') then
+    if client:supports_method 'textDocument/codeLens' then
       vim.lsp.codelens.refresh()
       vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
         group = vim.api.nvim_create_augroup('my.lsp.codelens', { clear = false }),
@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- textDocument/documentHighlight
-    if client:supports_method('textDocument/documentHighlight') then
+    if client:supports_method 'textDocument/documentHighlight' then
       local highlight_group = vim.api.nvim_create_augroup('my.lsp.document_highlight', { clear = false })
       vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
         group = highlight_group,
@@ -54,56 +54,56 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- textDocument/documentSymbol
-    if client:supports_method('textDocument/documentSymbol') then
+    if client:supports_method 'textDocument/documentSymbol' then
       map('n', '<leader>ds', vim.lsp.buf.document_symbol, 'Document symbols')
       map('n', '<leader>ws', vim.lsp.buf.workspace_symbol, 'Workspace symbols')
     end
 
     -- textDocument/formatting
-    if client:supports_method('textDocument/formatting') then
+    if client:supports_method 'textDocument/formatting' then
       map('n', '<leader>f', function()
-        vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 1000 })
+        vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 1000 }
       end, 'Format document')
 
       -- Auto-format on save (only if server doesn't support willSaveWaitUntil)
-      if not client:supports_method('textDocument/willSaveWaitUntil') then
+      if not client:supports_method 'textDocument/willSaveWaitUntil' then
         vim.api.nvim_create_autocmd('BufWritePre', {
           group = vim.api.nvim_create_augroup('my.lsp.format', { clear = false }),
           buffer = bufnr,
           callback = function()
-            vim.lsp.buf.format({ bufnr = bufnr, id = client.id, timeout_ms = 1000 })
+            vim.lsp.buf.format { bufnr = bufnr, id = client.id, timeout_ms = 1000 }
           end,
         })
       end
     end
 
     -- textDocument/rangeFormatting
-    if client:supports_method('textDocument/rangeFormatting') then
+    if client:supports_method 'textDocument/rangeFormatting' then
       map('v', '<leader>f', function()
-        vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 1000 })
+        vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 1000 }
       end, 'Format selection')
     end
 
     -- textDocument/hover
-    if client:supports_method('textDocument/hover') then
+    if client:supports_method 'textDocument/hover' then
       map('n', 'K', vim.lsp.buf.hover, 'Hover documentation')
     end
 
     -- textDocument/inlayHint
-    if client:supports_method('textDocument/inlayHint') then
+    if client:supports_method 'textDocument/inlayHint' then
       -- Enable inlay hints by default
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       map('n', '<leader>th', function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }, { bufnr = bufnr })
       end, 'Toggle inlay hints')
     end
 
     -- textDocument/rename
-    if client:supports_method('textDocument/rename') then
+    if client:supports_method 'textDocument/rename' then
       map('n', '<leader>rn', vim.lsp.buf.rename, 'Rename symbol')
     end
     -- textDocument/signatureHelp
-    if client:supports_method('textDocument/signatureHelp') then
+    if client:supports_method 'textDocument/signatureHelp' then
       map('i', '<C-k>', vim.lsp.buf.signature_help, 'Signature help')
 
       -- Auto-trigger signature help
@@ -131,7 +131,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- LSP info
     map('n', '<leader>li', function()
-      local clients = vim.lsp.get_clients({ bufnr = bufnr })
+      local clients = vim.lsp.get_clients { bufnr = bufnr }
       if #clients == 0 then
         vim.notify('No LSP clients attached to buffer', vim.log.levels.INFO)
         return
@@ -141,14 +141,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
       for _, c in ipairs(clients) do
         table.insert(info, string.format('• %s (id: %d)', c.name, c.id))
       end
-      vim.notify(
-        'LSP clients attached to buffer:\n' .. table.concat(info, '\n'),
-        vim.log.levels.INFO,
-        { title = 'LSP Info' }
-      )
+      vim.notify('LSP clients attached to buffer:\n' .. table.concat(info, '\n'), vim.log.levels.INFO,
+        { title = 'LSP Info' })
     end, 'LSP info')
     map('n', '<leader>lr', function()
-      local clients = vim.lsp.get_clients({ bufnr = bufnr })
+      local clients = vim.lsp.get_clients { bufnr = bufnr }
       for _, c in ipairs(clients) do
         vim.lsp.stop_client(c.id, true)
       end
