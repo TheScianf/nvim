@@ -21,6 +21,16 @@ return {
   },
   config = function()
     require('telescope').setup {
+      defaults = {
+        -- Show hidden files by default for all pickers
+        hidden = true,
+      },
+      pickers = {
+        find_files = {
+          -- Enable hidden files for find_files picker specifically
+          hidden = true,
+        },
+      },
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),

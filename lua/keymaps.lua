@@ -6,10 +6,11 @@ vim.cmd.colorscheme('unokai')
 
 vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
--- See `:help vim.opt`
-
 vim.opt.relativenumber = true
+
+-- Minimum width for the number column
+vim.opt.numberwidth = 1
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -54,7 +55,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
+vim.opt.fillchars = { eob = ' ' }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
@@ -123,3 +124,9 @@ vim.keymap.set('i', '<', '<><Left>', { desc = 'Autopair <', noremap = true, sile
 vim.keymap.set('n', '<leader>bg', function()
   vim.cmd.colorscheme(vim.g.colors_name == "unokai" and "shine" or "unokai")
 end, { desc = 'Toggle between unokai and shine colorschemes' })
+
+-- Explore commands
+vim.keymap.set('n', '\\', ':Lexplore<CR>', { desc = 'Open file tree', noremap = true, silent = true })
+vim.g.netrw_banner = 0    -- Remove the banner/description
+vim.g.netrw_liststyle = 3 -- Tree view
+vim.g.netrw_winsize = 25  -- Width of the netrw window (25% of screen)
