@@ -4,9 +4,48 @@ I'm using the 0.12.0-dev version
 
 ## Content
 
+- [Structure](#structure)
 - [Plugin Manager](#plugin-manager)
 - [Installed Plugins](#installed-plugins)
 - [Credits](#credits)
+
+### Structure
+
+```bash
+├── init.lua
+├── lazy-lock.json
+├── LICENSE.md
+├── lsp
+│   ├── kotlin_lsp.lua
+│   ├── lua_ls.lua
+│   ├── markdown_ls.lua
+│   └── python_lsp.lua
+├── lua
+│   ├── autocommands.lua
+│   ├── config
+│   │   └── lazy.lua
+│   ├── diagnostics.lua
+│   ├── keymaps.lua
+│   ├── lsp_config.lua
+│   ├── plugins
+│   │   ├── codeflow
+│   │   │   ├── formatting.lua
+│   │   │   ├── linting.lua
+│   │   │   └── snapshot.lua
+│   │   ├── lazygit.lua
+│   │   ├── luasnip.lua
+│   │   ├── mason.lua
+│   │   ├── telescope.lua
+│   │   └── treesitter.lua
+│   └── snippets
+│       ├── c.lua
+│       ├── java.lua
+│       ├── kotlin.lua
+│       ├── markdown.lua
+│       └── python.lua
+└── README.md
+
+```
 
 ### Plugin Manager
 
@@ -23,6 +62,7 @@ I don't use many plugins but I manage all of them with Lazy, in the future I wil
 - [Nvim-lint](https://github.com/mfussenegger/nvim-lint)
 - [nvim-silicon](https://github.com/michaelrommel/nvim-silicon)
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- [LuaSnip](https://github.com/L3MON4D3/LuaSnip/tree/master)
 
 ### Credits
 
