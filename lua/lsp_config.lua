@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client:supports_method 'textDocument/implementation' then
       map('n', 'gi', vim.lsp.buf.implementation, 'Go to implementation')
     end
+
     -- textDocument/completion
     if client:supports_method 'textDocument/completion' then
       vim.opt_local.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
@@ -41,11 +42,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- textDocument/documentHighlight
     if client:supports_method 'textDocument/documentHighlight' then
       local highlight_group = vim.api.nvim_create_augroup('my.lsp.document_highlight', { clear = false })
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-        group = highlight_group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.document_highlight,
-      })
       vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
         group = highlight_group,
         buffer = bufnr,
@@ -57,31 +53,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client:supports_method 'textDocument/documentSymbol' then
       map('n', '<leader>ds', vim.lsp.buf.document_symbol, 'Document symbols')
       map('n', '<leader>ws', vim.lsp.buf.workspace_symbol, 'Workspace symbols')
-    end
-
-    -- textDocument/formatting
-    if client:supports_method 'textDocument/formatting' then
-      map('n', '<leader>f', function()
-        vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 1000 }
-      end, 'Format document')
-
-      -- Auto-format on save (only if server doesn't support willSaveWaitUntil)
-      if not client:supports_method 'textDocument/willSaveWaitUntil' then
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          group = vim.api.nvim_create_augroup('my.lsp.format', { clear = false }),
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format { bufnr = bufnr, id = client.id, timeout_ms = 1000 }
-          end,
-        })
-      end
-    end
-
-    -- textDocument/rangeFormatting
-    if client:supports_method 'textDocument/rangeFormatting' then
-      map('v', '<leader>f', function()
-        vim.lsp.buf.format { bufnr = bufnr, timeout_ms = 1000 }
-      end, 'Format selection')
     end
 
     -- textDocument/hover
@@ -141,8 +112,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       for _, c in ipairs(clients) do
         table.insert(info, string.format('• %s (id: %d)', c.name, c.id))
       end
-      vim.notify('LSP clients attached to buffer:\n' .. table.concat(info, '\n'), vim.log.levels.INFO,
-        { title = 'LSP Info' })
+      vim.notify('LSP clients attached to buffer:\n' .. table.concat(info, '\n'), vim.log.levels.INFO, { title = 'LSP Info' })
     end, 'LSP info')
     map('n', '<leader>lr', function()
       local clients = vim.lsp.get_clients { bufnr = bufnr }
