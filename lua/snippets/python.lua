@@ -3,10 +3,12 @@ local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
+local c = ls.choice_node
 local d = ls.dynamic_node
 local sn = ls.snippet_node
 local fmt = require('luasnip.extras.fmt').fmt
 local rep = require('luasnip.extras').rep
+
 return {
   s(
     {
@@ -396,4 +398,57 @@ return {
     trig = 'tern',
     dscr = 'Ternary operator',
   }, fmt('{} if {} else {}', { i(1, 'value_if_true'), i(2, 'condition'), i(3, 'value_if_false') })),
+  s(
+    { trig = 'from', dscr = 'from _ import _' },
+    fmt('from {} import {}', {
+      i(1, 'module'),
+      c(2, {
+        i(1, 'module'),
+        fmt('{} as {}', { i(1, 'module'), i(2, 'alias') }), -- 'as' with alias
+      }),
+    })
+  ),
+  s(
+    { trig = 'imp', dscr = 'import module' },
+    fmt('import {}', {
+      c(1, {
+        i(1, 'module'),
+        fmt('{} as {}', { i(1, 'module'), i(2, 'alias') }),
+      }),
+    })
+  ),
+  s(
+    { trig = 'doc', dscr = 'Python docstring template' },
+    fmt(
+      [[
+"""{}
+
+Args:
+{}
+
+Returns:
+    {}
+"""]],
+      {
+        i(1, 'Brief description of the function.'),
+        c(2, {
+          t '', -- No parameters
+          fmt('    {} ({}): {}', { i(1, 'param'), i(2, 'type'), i(3, 'description') }),
+          fmt(
+            [[    {} ({}): {}
+    {} ({}): {}]],
+            {
+              i(1, 'param1'),
+              i(2, 'type1'),
+              i(3, 'description1'),
+              i(4, 'param2'),
+              i(5, 'type2'),
+              i(6, 'description2'),
+            }
+          ),
+        }),
+        i(3, 'Description of return value'),
+      }
+    )
+  ),
 }
