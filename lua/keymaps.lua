@@ -23,8 +23,7 @@ vim.opt.showcmd = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
-vim.keymap.set('v', '<leader>y', '"+y',
-  { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank to clipboard current line', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>ya', 'gg"+yG', { desc = 'Yank entire file to clipboard', noremap = true, silent = true })
 -- Enable break indent
@@ -100,8 +99,7 @@ vim.keymap.set('n', '<leader>nt', ':tabnew<CR>', { desc = 'Open new tab', norema
 vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab', noremap = true, silent = true })
 
 -- New terminal
-vim.keymap.set('n', '<leader>te', ':sp | te<CR>',
-  { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>te', ':sp | te<CR>', { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
 -- Visual all buffer
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', noremap = true, silent = true })
 
@@ -125,22 +123,9 @@ vim.keymap.set('n', '<leader>bg', function()
 end, { desc = 'Toggle between unokai and shine colorschemes' })
 
 -- Explore commands
-vim.g.netrw_banner = 0    -- Remove the banner/description
+vim.g.netrw_banner = 0 -- Remove the banner/description
 vim.g.netrw_liststyle = 3 -- Tree view
-vim.g.netrw_winsize = 25  -- Width of the netrw window (25% of screen)
+vim.g.netrw_winsize = 25
 
-local function toggle_right_explore()
-  for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    if vim.bo[buf].filetype == 'netrw' then
-      vim.api.nvim_win_close(win, false)
-      return
-    end
-  end
-  -- Open on the right side
-  vim.cmd('botright ' .. vim.g.netrw_winsize .. 'vnew')
-  vim.cmd 'Explore'
-end
-
--- Set the keymap to toggle file tree vertically on the right
-vim.keymap.set('n', '\\', toggle_right_explore, { desc = 'Toggle file tree', noremap = true, silent = true })
+-- Set the keymap to toggle file tree on the left
+vim.keymap.set('n', '\\', ':Lexplore<CR>', { desc = 'Toggle file tree', noremap = true, silent = true })
