@@ -117,6 +117,31 @@ vim.keymap.set('i', "'", "''<Left>", { desc = "Autopair '", noremap = true, sile
 vim.keymap.set('i', '`', '``<Left>', { desc = 'Autopair `', noremap = true, silent = true })
 vim.keymap.set('i', '<', '<><Left>', { desc = 'Autopair <', noremap = true, silent = true })
 
+-- Surround with brackets
+local function create_surround_operator(left, right)
+  return function()
+    vim.o.operatorfunc = 'v:lua.surround_operator'
+    _G.surround_left = left
+    _G.surround_right = right
+    return 'g@'
+  end
+end
+
+_G.surround_operator = function(motion_type)
+  local start_mark = vim.api.nvim_buf_get_mark(0, '[')
+  local end_mark = vim.api.nvim_buf_get_mark(0, ']')
+
+  local lines = vim.api.nvim_buf_get_text(0, start_mark[1] - 1, start_mark[2], end_mark[1] - 1, end_mark[2] + 1, {})
+  local text = table.concat(lines, '\n')
+
+  local new_text = _G.surround_left .. text .. _G.surround_right
+  vim.api.nvim_buf_set_text(0, start_mark[1] - 1, start_mark[2], end_mark[1] - 1, end_mark[2] + 1, vim.split(new_text, '\n'))
+end
+
+vim.keymap.set('n', 's[', create_surround_operator('[', ']'), { expr = true, desc = 'Surround with brackets' })
+vim.keymap.set('n', 's(', create_surround_operator('(', ')'), { expr = true, desc = 'Surround with parentheses' })
+vim.keymap.set('n', 's"', create_surround_operator('"', '"'), { expr = true, desc = 'Surround with double quotes' })
+--
 -- Change colorscheme from light to dark and viceversa
 vim.keymap.set('n', '<leader>bg', function()
   vim.cmd.colorscheme(vim.g.colors_name == 'unokai' and 'shine' or 'unokai')
