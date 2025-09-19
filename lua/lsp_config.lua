@@ -23,10 +23,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- textDocument/completion
     if client:supports_method 'textDocument/completion' then
       vim.opt_local.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
+      vim.opt_local.pumheight = 5 -- show max 5 suggestions
       vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
       vim.keymap.set('i', '<C-Space>', function()
         vim.lsp.completion.get()
       end, { buffer = bufnr })
+      -- <Tab>: confirm if menu visible, otherwise insert a real Tab
+      vim.keymap.set('i', '<Tab>', function()
+        if vim.fn.pumvisible() == 1 then
+          return vim.api.nvim_replace_termcodes('<C-y>', true, true, true)
+        else
+          return vim.api.nvim_replace_termcodes('<Tab>', true, true, true)
+        end
+      end, { expr = true, buffer = bufnr })
     end
     -- textDocument/codeLens
     if client:supports_method 'textDocument/codeLens' then

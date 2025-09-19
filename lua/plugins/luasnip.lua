@@ -18,42 +18,46 @@ return {
     ls_loader.load {
       paths = { '~/.config/nvim/lua/snippets/' },
     }
-    -- Function to show available snippets
-    local function show_snippets()
+    -- Snippet autocompletion
+
+    vim.o.completefunc = 'v:lua.snippet_complete'
+
+    function _G.snippet_complete(findstart, base)
+      local luasnip = require 'luasnip'
       local filetype = vim.bo.filetype
-      local snippets = ls.get_snippets(filetype)
-
-      if #snippets == 0 then
-        print('No snippets available for filetype: ' .. filetype)
-        return
-      end
-
-      -- Create a table of snippet choices
-      local choices = {}
-      for _, snippet in ipairs(snippets) do
-        local description = snippet.dscr and table.concat(snippet.dscr, ' ') or 'No description'
-        table.insert(choices, {
-          name = snippet.name,
-          trigger = snippet.trigger,
-          description = description,
-          snippet = snippet,
-        })
-      end
-
-      -- Show the selection menu
-      vim.ui.select(choices, {
-        prompt = 'Select snippet:',
-        format_item = function(item)
-          return string.format('%-20s %s', item.trigger, item.description)
-        end,
-      }, function(choice)
-        if choice then
-          -- Insert the snippet trigger and expand
-          vim.api.nvim_put({ choice.trigger }, 'c', true, true)
-          ls.expand()
+      if findstart == 1 then
+        local line = vim.fn.getline '.'
+        local col = vim.fn.col '.' - 1
+        while col > 0 and line:sub(col, col):match '%w' do
+          col = col - 1
         end
-      end)
+        return col
+      else
+        local results = {}
+        local snippets = luasnip.get_snippets(filetype) or {}
+        for _, snip in ipairs(snippets) do
+          if snip.trigger:match('^' .. vim.pesc(base)) then
+            table.insert(results, {
+              word = snip.trigger,
+              abbr = snip.name or snip.trigger,
+              menu = 'Snippet',
+              info = table.concat(snip.dscr or { '' }, ' '),
+            })
+          end
+        end
+        return #results > 0 and results or nil
+      end
     end
+
+    -- expand automatically when a snippet is selected
+    vim.api.nvim_create_autocmd('CompleteDone', {
+      callback = function()
+        local completed = vim.v.completed_item
+        if completed and completed.menu == 'Snippet' then
+          require('luasnip').expand()
+        end
+      end,
+    })
 
     vim.keymap.set({ 'i' }, '<C-k>', function()
       ls.expand()
@@ -70,6 +74,6 @@ return {
         ls.change_choice(1)
       end
     end, { silent = true })
-    vim.keymap.set({ 'i', 'n' }, '<C-s>', show_snippets, { silent = true, desc = 'Show available snippets' })
+    vim.keymap.set({ 'i', 'n' }, '<C-s>', '<C-x><C-u>', { silent = true, desc = 'Show available snippets' })
   end,
 }
