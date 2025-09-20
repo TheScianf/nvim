@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = ','
 
 vim.cmd.colorscheme 'unokai'
 
