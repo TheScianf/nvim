@@ -101,7 +101,12 @@ vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab',
 -- New terminal
 vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>', { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
 -- New terminal in new tab running codex
-vim.keymap.set('n', '<leader>tx', ':tabnew | terminal codex<CR>i', { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true })
+vim.keymap.set(
+  'n',
+  '<leader>tx',
+  ':tabnew | terminal codex -a on-request<CR>i',
+  { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true }
+)
 -- Visual all buffer
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', noremap = true, silent = true })
 
@@ -140,9 +145,10 @@ _G.surround_operator = function(motion_type)
   vim.api.nvim_buf_set_text(0, start_mark[1] - 1, start_mark[2], end_mark[1] - 1, end_mark[2] + 1, vim.split(new_text, '\n'))
 end
 
-vim.keymap.set('n', 's[', create_surround_operator('[', ']'), { expr = true, desc = 'Surround with brackets' })
+vim.keymap.set('n', 's[', create_surround_operator('[', ']'), { expr = true, desc = 'Surround with square brackets' })
 vim.keymap.set('n', 's(', create_surround_operator('(', ')'), { expr = true, desc = 'Surround with parentheses' })
 vim.keymap.set('n', 's"', create_surround_operator('"', '"'), { expr = true, desc = 'Surround with double quotes' })
+vim.keymap.set('n', 's{', create_surround_operator('{', '}'), { expr = true, desc = 'Surround with brackets' })
 --
 -- Change colorscheme from light to dark and viceversa
 vim.keymap.set('n', '<leader>bg', function()
