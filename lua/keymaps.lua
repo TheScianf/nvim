@@ -162,3 +162,41 @@ vim.g.netrw_winsize = 25
 
 -- Set the keymap to toggle file tree on the left
 vim.keymap.set('n', '\\', ':Lexplore<CR>', { desc = 'Toggle file tree', noremap = true, silent = true })
+
+-- Latex keymaps that uses latexmk and evince pdf reader
+vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>', { desc = 'Compile main.tex', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lc', ':!latexmk -C', { desc = 'Delete auxiliary latex file', noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>lp', function()
+  -- Get the default .desktop entry for PDFs
+  local default = vim.fn.systemlist('xdg-mime query default application/pdf')[1]
+  if not default or default == '' then
+    vim.notify('⚠️ No default PDF application found', vim.log.levels.WARN)
+    return
+  end
+
+  -- Locate the .desktop file
+  local desktop_file = '/usr/share/applications/' .. vim.trim(default)
+  if vim.fn.filereadable(desktop_file) == 0 then
+    desktop_file = vim.fn.expand('~/.local/share/applications/' .. vim.trim(default))
+  end
+  if vim.fn.filereadable(desktop_file) == 0 then
+    vim.notify('⚠️ Desktop file not found for ' .. default, vim.log.levels.WARN)
+    return
+  end
+
+  -- Extract the Exec command (first word after Exec=)
+  local exec_line = vim.fn.systemlist("grep -m1 '^Exec=' " .. vim.fn.shellescape(desktop_file))[1]
+  if not exec_line or exec_line == '' then
+    vim.notify('⚠️ Could not read Exec line from ' .. default, vim.log.levels.WARN)
+    return
+  end
+
+  local pdf_reader = exec_line:gsub('Exec=', ''):match '^%S+'
+  if pdf_reader and vim.fn.executable(pdf_reader) == 1 then
+    vim.system({ pdf_reader, 'main.pdf' }, { detach = true })
+    vim.notify('📖 Opening main.pdf with ' .. pdf_reader, vim.log.levels.INFO)
+  else
+    vim.notify('⚠️ PDF reader command not found or not executable', vim.log.levels.WARN)
+  end
+end, { desc = 'Open main.pdf with default PDF reader' })
