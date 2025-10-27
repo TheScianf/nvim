@@ -1,23 +1,18 @@
 local ls = require 'luasnip'
 local s = ls.snippet
 local i = ls.insert_node
+local f = ls.function_node
 local fmt = require('luasnip.extras.fmt').fmt
 local rep = require('luasnip.extras').rep
 
+-- Helper: extract base filename without path or extension
+local function filename_only(args)
+  local name = args[1][1]
+  name = name:match '([^/]+)$' or name -- strip directories
+  name = name:gsub('%.[^%.]+$', '') -- strip extension
+  return name
+end
 return {
-
-  -- Equation
-  s(
-    { trig = 'eq', dscr = 'Equation environment' },
-    fmt(
-      [[
-\begin{{equation}}
-  {}
-\end{{equation}}
-]],
-      { i(1, 'E = mc^2') }
-    )
-  ),
 
   -- Figure
   s(
@@ -26,7 +21,7 @@ return {
       [[
 \begin{{figure}}[h!]
   \centering
-  \includegraphics[width={}\\textwidth]{{{}}}
+  \includegraphics[width={}\textwidth]{{{}}}
   \caption{{{}}}
   \label{{fig:{} }}
 \end{{figure}}
@@ -35,7 +30,7 @@ return {
         i(1, '0.8'),
         i(2, 'path/to/image'),
         i(3, 'Caption text'),
-        rep(2),
+        f(filename_only, { 2 }),
       }
     )
   ),
@@ -222,6 +217,59 @@ return {
       {
         i(1, 'Paragraph heading'),
         i(2, 'Paragraph content...'),
+      }
+    )
+  ),
+  -- Bold text
+  s({ trig = 'bf', dscr = 'Bold text' }, fmt([[ \textbf{{{}}} ]], { i(1, 'bold text') })),
+
+  -- Italic text
+  s({ trig = 'it', dscr = 'Italic text' }, fmt([[ \textit{{{}}} ]], { i(1, 'italic text') })),
+
+  -- Underline text
+  s({ trig = 'ul', dscr = 'Underlined text' }, fmt([[ \underline{{{}}} ]], { i(1, 'underlined text') })),
+  -- New page
+  s({ trig = 'np', dscr = 'Insert a new page command' }, fmt([[ \newpage ]], {})),
+  -- Two figures side by side
+  s(
+    { trig = 'fig2', dscr = 'Two figures side by side with subcaptions' },
+    fmt(
+      [[
+\begin{{figure}}[h!]
+  \centering
+  \begin{{minipage}}[b]{{{}\textwidth}}
+    \centering
+    \includegraphics[width=\textwidth]{{{}}}
+    \caption{{{}}}
+    \label{{fig:{} }}
+  \end{{minipage}}
+  \hfill
+  \begin{{minipage}}[b]{{{}\textwidth}}
+    \centering
+    \includegraphics[width=\textwidth]{{{}}}
+    \caption{{{}}}
+    \label{{fig:{} }}
+  \end{{minipage}}
+  \caption{{{}}}
+  \label{{fig:{} }}
+\end{{figure}}
+]],
+      {
+        -- Left figure
+        i(1, '0.45'),
+        i(2, 'path/to/left_image.png'),
+        i(3, 'Left caption'),
+        f(filename_only, { 2 }),
+
+        -- Right figure
+        i(4, '0.45'),
+        i(5, 'path/to/right_image.png'),
+        i(6, 'Right caption'),
+        f(filename_only, { 5 }),
+
+        -- Overall caption and label (editable)
+        i(7, 'Overall caption'),
+        i(8, 'combined'),
       }
     )
   ),
