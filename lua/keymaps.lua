@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 
 vim.g.maplocalleader = ','
 
-vim.cmd.colorscheme 'unokai'
+vim.cmd.colorscheme 'habamax'
 
 vim.g.have_nerd_font = true
 
@@ -152,8 +152,8 @@ vim.keymap.set('n', 's{', create_surround_operator('{', '}'), { expr = true, des
 --
 -- Change colorscheme from light to dark and viceversa
 vim.keymap.set('n', '<leader>bg', function()
-  vim.cmd.colorscheme(vim.g.colors_name == 'unokai' and 'shine' or 'unokai')
-end, { desc = 'Toggle between unokai and shine colorschemes' })
+  vim.cmd.colorscheme(vim.g.colors_name == 'habamax' and 'shine' or 'habamax')
+end, { desc = 'Toggle between habamax and shine colorschemes' })
 
 -- Explore commands
 vim.g.netrw_banner = 0 -- Remove the banner/description
