@@ -101,12 +101,7 @@ vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab',
 -- New terminal
 vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>', { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
 -- New terminal in new tab running codex
-vim.keymap.set(
-  'n',
-  '<leader>tx',
-  ':tabnew | terminal codex -a on-request<CR>i',
-  { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>tx', ':tabnew | terminal codex<CR>i', { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true })
 -- Visual all buffer
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', noremap = true, silent = true })
 
