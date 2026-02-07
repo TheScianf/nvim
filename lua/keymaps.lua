@@ -23,7 +23,8 @@ vim.opt.showcmd = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
-vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
+vim.keymap.set('v', '<leader>y', '"+y',
+  { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank to clipboard current line', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>ya', 'gg"+yG', { desc = 'Yank entire file to clipboard', noremap = true, silent = true })
 -- Enable break indent
@@ -99,10 +100,12 @@ vim.keymap.set('n', '<leader>nt', ':tabnew<CR>', { desc = 'Open new tab', norema
 vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab', noremap = true, silent = true })
 
 -- New terminal
-vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>', { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
--- New terminal in new tab running codex or geminicli (toggle the one you prefer)
--- vim.keymap.set('n', '<leader>tx', ':tabnew | terminal codex <CR>i', { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true })
-vim.keymap.set('n', '<leader>tx', ':tabnew | terminal gemini <CR>i', { desc = 'Open terminal in new tab and run gemini', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>',
+  { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
+-- New terminal in new tab running codex or gemini (toggle comment of the preferred one)
+-- vim.keymap.set('n', '<leader>tx', ':tabnew | terminal codex<CR>i', { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tx', ':tabnew | terminal gemini<CR>i',
+  { desc = 'Open terminal in new tab and run gemini cli', noremap = true, silent = true })
 -- Visual all buffer
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', noremap = true, silent = true })
 
@@ -138,7 +141,8 @@ _G.surround_operator = function(motion_type)
   local text = table.concat(lines, '\n')
 
   local new_text = _G.surround_left .. text .. _G.surround_right
-  vim.api.nvim_buf_set_text(0, start_mark[1] - 1, start_mark[2], end_mark[1] - 1, end_mark[2] + 1, vim.split(new_text, '\n'))
+  vim.api.nvim_buf_set_text(0, start_mark[1] - 1, start_mark[2], end_mark[1] - 1, end_mark[2] + 1,
+    vim.split(new_text, '\n'))
 end
 
 vim.keymap.set('n', 's[', create_surround_operator('[', ']'), { expr = true, desc = 'Surround with square brackets' })
@@ -152,7 +156,7 @@ vim.keymap.set('n', '<leader>bg', function()
 end, { desc = 'Toggle between habamax and shine colorschemes' })
 
 -- Explore commands
-vim.g.netrw_banner = 0 -- Remove the banner/description
+vim.g.netrw_banner = 0    -- Remove the banner/description
 vim.g.netrw_liststyle = 3 -- Tree view
 vim.g.netrw_winsize = 25
 
@@ -160,7 +164,8 @@ vim.g.netrw_winsize = 25
 vim.keymap.set('n', '\\', ':Lexplore<CR>', { desc = 'Toggle file tree', noremap = true, silent = true })
 
 -- Latex keymaps that uses latexmk and evince pdf reader
-vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>', { desc = 'Compile main.tex', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>',
+  { desc = 'Compile main.tex', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>lc', ':!latexmk -C', { desc = 'Delete auxiliary latex file', noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>lp', function()
