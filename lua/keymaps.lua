@@ -2,8 +2,6 @@ vim.g.mapleader = ' '
 
 vim.g.maplocalleader = ','
 
-vim.cmd.colorscheme 'habamax'
-
 vim.g.have_nerd_font = true
 
 vim.opt.relativenumber = true
@@ -23,8 +21,7 @@ vim.opt.showcmd = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
-vim.keymap.set('v', '<leader>y', '"+y',
-  { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank to clipboard current line', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>ya', 'gg"+yG', { desc = 'Yank entire file to clipboard', noremap = true, silent = true })
 -- Enable break indent
@@ -100,36 +97,15 @@ vim.keymap.set('n', '<leader>nt', ':tabnew<CR>', { desc = 'Open new tab', norema
 vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab', noremap = true, silent = true })
 
 -- New terminal
-vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>',
-  { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>', { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
 -- New terminal in new tab running codex or gemini (toggle comment of the preferred one)
 -- vim.keymap.set('n', '<leader>tx', ':tabnew | terminal codex<CR>i', { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true })
-vim.keymap.set('n', '<leader>tx', ':tabnew | terminal gemini<CR>i',
-  { desc = 'Open terminal in new tab and run gemini cli', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tx', ':tabnew | terminal gemini<CR>i', { desc = 'Open terminal in new tab and run gemini cli', noremap = true, silent = true })
 -- Visual all buffer
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', noremap = true, silent = true })
 
--- center to screen when jumping to line
-vim.keymap.set('n', 'j', 'jzz', { desc = 'Move down and center', noremap = true, silent = true })
-vim.keymap.set('n', 'k', 'kzz', { desc = 'Move up and center', noremap = true, silent = true })
-vim.keymap.set('n', 'G', 'Gzz', { desc = 'Move to end of file and center', noremap = true, silent = true })
-
--- Change colorscheme from light to dark and viceversa
-vim.keymap.set('n', '<leader>bg', function()
-  vim.cmd.colorscheme(vim.g.colors_name == 'habamax' and 'shine' or 'habamax')
-end, { desc = 'Toggle between habamax and shine colorschemes' })
-
--- Explore commands
-vim.g.netrw_banner = 0    -- Remove the banner/description
-vim.g.netrw_liststyle = 3 -- Tree view
-vim.g.netrw_winsize = 25
-
--- Set the keymap to toggle file tree on the left
-vim.keymap.set('n', '\\', ':Lexplore<CR>', { desc = 'Toggle file tree', noremap = true, silent = true })
-
 -- Latex keymaps that uses latexmk and evince pdf reader
-vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>',
-  { desc = 'Compile main.tex', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>', { desc = 'Compile main.tex', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>lc', ':!latexmk -C', { desc = 'Delete auxiliary latex file', noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>lp', function()
