@@ -10,7 +10,8 @@ local rep = require('luasnip.extras').rep
 
 return {
   s({ trig = 'ru', dscr = 'Rule with head and body' }, fmt('{}({}) :- {}.', { i(1), i(2), i(3) })),
-  s({ trig = 'pr', dscr = 'Predicate' }, fmt('{}({})', { i(1), i(2) })),
+  s({ trig = 'fc', dscr = 'Predicate' }, fmt('{}({}).', { i(1), i(2) })),
   s({ trig = 'inc', dscr = 'Include file' }, fmt('#include "{}".', { i(1) })),
   s({ trig = 'sw', dscr = 'Show' }, fmt('#show {}/{}.', { i(1), i(2) })),
+  s({ trig = 'scn', dscr = 'Section' }, fmt('%---------------------{}---------------------', { i(1) })),
 }
