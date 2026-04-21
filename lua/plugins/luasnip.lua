@@ -49,16 +49,6 @@ return {
       end
     end
 
-    -- expand automatically when a snippet is selected
-    vim.api.nvim_create_autocmd('CompleteDone', {
-      callback = function()
-        local completed = vim.v.completed_item
-        if completed and completed.menu == 'Snippet' then
-          require('luasnip').expand()
-        end
-      end,
-    })
-
     vim.keymap.set({ 'i' }, '<C-k>', function()
       ls.expand()
     end, { silent = true })
