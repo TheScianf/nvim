@@ -21,8 +21,7 @@ vim.opt.showcmd = false
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
-vim.keymap.set('v', '<leader>y', '"+y',
-  { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard whatever selected in Visual mode', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank to clipboard current line', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>ya', 'gg"+yG', { desc = 'Yank entire file to clipboard', noremap = true, silent = true })
 -- Enable break indent
@@ -99,20 +98,16 @@ vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close current tab',
 vim.keymap.set('n', '<C-n>', 'gt', { desc = 'Next tab', noremap = true, silent = true })
 vim.keymap.set('n', '<C-p>', 'gT', { desc = 'Previous tab', noremap = true, silent = true })
 
-
 -- New terminal
-vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>',
-  { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
--- New terminal in new tab running codex or gemini (toggle comment of the preferred one)
+vim.keymap.set('n', '<leader>te', ':tabnew | te<CR>', { desc = 'Open new terminal in the same tab', noremap = true, silent = true })
+-- New terminal in new tab running codex or antigravity (toggle comment of the preferred one)
 -- vim.keymap.set('n', '<leader>tx', ':tabnew | terminal codex<CR>i', { desc = 'Open terminal in new tab and run codex', noremap = true, silent = true })
-vim.keymap.set('n', '<leader>tx', ':tabnew | terminal gemini<CR>i',
-  { desc = 'Open terminal in new tab and run gemini cli', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tx', ':tabnew | terminal agy<CR>i', { desc = 'Open terminal in new tab and run gemini cli', noremap = true, silent = true })
 -- Visual all buffer
 vim.keymap.set('n', '<leader>va', 'ggVG', { desc = 'Visual select all buffer', noremap = true, silent = true })
 
 -- Latex keymaps that uses latexmk and evince pdf reader
-vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>',
-  { desc = 'Compile main.tex', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lx', ':!latexmk -pdf main.tex<CR>', { desc = 'Compile main.tex', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>lc', ':!latexmk -C', { desc = 'Delete auxiliary latex file', noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>lp', function()
